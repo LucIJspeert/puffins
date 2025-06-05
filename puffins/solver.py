@@ -145,7 +145,7 @@ def solve_fw(
     n, p = X.shape
 
     if W is None:
-        weights = np.ones(n)
+        W = np.ones(n)
     if L is None:
         L = np.ones(p)
 
@@ -162,7 +162,7 @@ def solve_fw(
         # Identical to the generalized ridge regression! 
         # We just use special weights to approximate a Gaussian Process regression
 
-        XTW = X.T * weights
+        XTW = X.T * W
         XTWX= XTW @ X
         XTWX[np.diag_indices_from(XTWX)] += L
         return np.linalg.lstsq(XTWX, XTW @ y, rcond=RCOND)[0]
